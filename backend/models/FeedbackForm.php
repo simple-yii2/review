@@ -92,7 +92,7 @@ class FeedbackForm extends Model
 		$object = $this->_object;
 
 		if ($object->getIsNewRecord())
-			$object->user_id = Yii::$app->user->getId();
+			$object->user_id = Yii::$app->getUser()->getId();
 
 		$object->active = $this->active == 1;
 		$object->date = $this->date;
