@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 
-$title = Yii::t('feedback', 'Create feedback');
+$title = Yii::t('review', 'Create review');
 
 $this->title = $title . ' | ' . Yii::$app->name;
 
 $this->params['breadcrumbs'] = [
-	['label' => Yii::t('feedback', 'Feedbacks'), 'url' => ['index']],
+	['label' => Yii::t('review', 'Reviews'), 'url' => ['index']],
 	$title,
 ];
 

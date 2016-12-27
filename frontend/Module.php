@@ -1,6 +1,6 @@
 <?php
 
-namespace cms\feedback\frontend;
+namespace cms\review\frontend;
 
 use Yii;
 
@@ -17,8 +17,8 @@ class Module extends \yii\base\Module
 	{
 		parent::init();
 
-		if (!isset(Yii::$app->i18n->translations['feedback'])) {
-			Yii::$app->i18n->translations['feedback'] = [
+		if (!isset(Yii::$app->i18n->translations['review'])) {
+			Yii::$app->i18n->translations['review'] = [
 				'class' => 'yii\i18n\PhpMessageSource',
 				'sourceLanguage' => 'en-US',
 				'basePath' => dirname(__DIR__) . '/messages',

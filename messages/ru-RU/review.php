@@ -1,8 +1,8 @@
 <?php
 
 return [
-	'Feedbacks' => 'Отзывы',
-	'Create feedback' => 'Добавить отзыв',
+	'Reviews' => 'Отзывы',
+	'Create review' => 'Добавить отзыв',
 
 	'Changes saved successfully.' => 'Изменения успешно сохранены.',
 	'Item not found.' => 'Объект не найден.',

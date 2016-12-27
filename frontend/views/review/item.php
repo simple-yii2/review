@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 
-use cms\feedback\frontend\assets\FeedbackAsset;
+use cms\review\frontend\assets\ReviewAsset;
 
 $date = strtotime($model->date);
 
@@ -13,7 +13,7 @@ $options = [
 if (!$model->active)
 	Html::addCssClass($options, 'inactive');
 
-FeedbackAsset::register($this);
+ReviewAsset::register($this);
 
 ?>
 <hr>
@@ -29,7 +29,7 @@ FeedbackAsset::register($this);
 			<span itemprop="name"><?= Html::encode($model->name) ?></span>
 		</span>
 	</p>
-	<div itemprop="reviewBody" class="feedback-content">
+	<div itemprop="reviewBody" class="review-content">
 		<p><?= Html::encode($model->content) ?></p>
 	</div>
 <?= Html::endTag('div') ?>

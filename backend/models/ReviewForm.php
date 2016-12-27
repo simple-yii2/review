@@ -1,6 +1,6 @@
 <?php
 
-namespace cms\feedback\backend\models;
+namespace cms\review\backend\models;
 
 use Yii;
 use yii\base\Model;
@@ -8,7 +8,7 @@ use yii\base\Model;
 /**
  * Editing form
  */
-class FeedbackForm extends Model
+class ReviewForm extends Model
 {
 
 	/**
@@ -32,15 +32,15 @@ class FeedbackForm extends Model
 	public $content;
 
 	/**
-	 * @var cms\feedback\common\models\Feedback
+	 * @var cms\review\common\models\Review
 	 */
 	private $_object;
 
 	/**
 	 * @inheritdoc
-	 * @param cms\feedback\common\models\Feedback $object 
+	 * @param cms\review\common\models\Review $object 
 	 */
-	public function __construct(\cms\feedback\common\models\Feedback $object, $config = [])
+	public function __construct(\cms\review\common\models\Review $object, $config = [])
 	{
 		$this->_object = $object;
 
@@ -59,10 +59,10 @@ class FeedbackForm extends Model
 	public function attributeLabels()
 	{
 		return [
-			'active' => Yii::t('feedback', 'Active'),
-			'date' => Yii::t('feedback', 'Date'),
-			'name' => Yii::t('feedback', 'Name'),
-			'content' => Yii::t('feedback', 'Content'),
+			'active' => Yii::t('review', 'Active'),
+			'date' => Yii::t('review', 'Date'),
+			'name' => Yii::t('review', 'Name'),
+			'content' => Yii::t('review', 'Content'),
 		];
 	}
 

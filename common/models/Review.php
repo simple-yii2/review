@@ -1,10 +1,10 @@
 <?php
 
-namespace cms\feedback\common\models;
+namespace cms\review\common\models;
 
 use yii\db\ActiveRecord;
 
-class Feedback extends ActiveRecord
+class Review extends ActiveRecord
 {
 
 	/**
@@ -12,7 +12,7 @@ class Feedback extends ActiveRecord
 	 */
 	public static function tableName()
 	{
-		return 'Feedback';
+		return 'Review';
 	}
 
 	/**

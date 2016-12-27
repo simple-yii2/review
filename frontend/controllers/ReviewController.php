@@ -1,19 +1,23 @@
 <?php
 
-namespace cms\feedback\frontend\controllers;
+namespace cms\review\frontend\controllers;
 
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
-use cms\feedback\common\models\Feedback;
+use cms\review\common\models\Review;
 
-class FeedbackController extends Controller
+class ReviewController extends Controller
 {
 
+	/**
+	 * List
+	 * @return string
+	 */
 	public function actionIndex()
 	{
-		$query = Feedback::find()
+		$query = Review::find()
 			->andWhere(['or',
 				['user_id' => Yii::$app->getUser()->getId()],
 				['active' => true],

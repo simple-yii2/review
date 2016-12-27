@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ListView;
 
-$title = Yii::t('feedback', 'Feedbacks');
+$title = Yii::t('review', 'Reviews');
 
 $this->title = $title . ' | ' . Yii::$app->name;
 
@@ -14,5 +14,5 @@ $this->title = $title . ' | ' . Yii::$app->name;
 	'dataProvider' => $dataProvider,
 	'itemView' => 'item',
 	'layout' => "{items}\n{pager}",
-	'options' => ['class' => 'feedback-list'],
+	'options' => ['class' => 'review-list'],
 ]) ?>

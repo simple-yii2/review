@@ -1,17 +1,17 @@
 <?php
 
-namespace cms\feedback\backend\controllers;
+namespace cms\review\backend\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 
-use cms\feedback\backend\models\FeedbackForm;
-use cms\feedback\backend\models\FeedbackSearch;
-use cms\feedback\common\models\Feedback;
+use cms\review\backend\models\ReviewForm;
+use cms\review\backend\models\ReviewSearch;
+use cms\review\common\models\Review;
 
-class FeedbackController extends Controller
+class ReviewController extends Controller
 {
 
 	/**
@@ -23,7 +23,7 @@ class FeedbackController extends Controller
 			'access' => [
 				'class' => AccessControl::className(),
 				'rules' => [
-					['allow' => true, 'roles' => ['Feedback']],
+					['allow' => true, 'roles' => ['Review']],
 				],
 			],
 		];
@@ -35,7 +35,7 @@ class FeedbackController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$model = new FeedbackSearch;
+		$model = new ReviewSearch;
 
 		return $this->render('index', [
 			'dataProvider' => $model->search(Yii::$app->getRequest()->get()),
@@ -49,10 +49,10 @@ class FeedbackController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model = new FeedbackForm(new Feedback);
+		$model = new ReviewForm(new Review);
 
 		if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
-			Yii::$app->session->setFlash('success', Yii::t('feedback', 'Changes saved successfully.'));
+			Yii::$app->session->setFlash('success', Yii::t('review', 'Changes saved successfully.'));
 			return $this->redirect(['index']);
 		}
 
@@ -68,14 +68,14 @@ class FeedbackController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$object = Feedback::findOne($id);
+		$object = Review::findOne($id);
 		if ($object === null)
-			throw new BadRequestHttpException(Yii::t('feedback', 'Item not found.'));
+			throw new BadRequestHttpException(Yii::t('review', 'Item not found.'));
 
-		$model = new FeedbackForm($object);
+		$model = new ReviewForm($object);
 
 		if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
-			Yii::$app->session->setFlash('success', Yii::t('feedback', 'Changes saved successfully.'));
+			Yii::$app->session->setFlash('success', Yii::t('review', 'Changes saved successfully.'));
 			return $this->redirect(['index']);
 		}
 
@@ -91,12 +91,12 @@ class FeedbackController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$object = Feedback::findOne($id);
+		$object = Review::findOne($id);
 		if ($object === null)
-			throw new BadRequestHttpException(Yii::t('feedback', 'Item not found.'));
+			throw new BadRequestHttpException(Yii::t('review', 'Item not found.'));
 
 		if ($object->delete()) {
-			Yii::$app->session->setFlash('success', Yii::t('feedback', 'Item deleted successfully.'));
+			Yii::$app->session->setFlash('success', Yii::t('review', 'Item deleted successfully.'));
 		}
 
 		return $this->redirect(['index']);

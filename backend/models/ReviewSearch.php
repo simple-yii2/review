@@ -1,16 +1,16 @@
 <?php
 
-namespace cms\feedback\backend\models;
+namespace cms\review\backend\models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
 
-use cms\feedback\common\models\Feedback;
+use cms\review\common\models\Review;
 
 /**
  * Search model
  */
-class FeedbackSearch extends Feedback {
+class ReviewSearch extends Review {
 
 	/**
 	 * @inheritdoc
@@ -27,8 +27,8 @@ class FeedbackSearch extends Feedback {
 	public function attributeLabels()
 	{
 		return [
-			'date' => Yii::t('feedback', 'Date'),
-			'name' => Yii::t('feedback', 'Name'),
+			'date' => Yii::t('review', 'Date'),
+			'name' => Yii::t('review', 'Name'),
 		];
 	}
 
