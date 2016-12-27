@@ -1,8 +1,8 @@
 {
-    "name": "simple-yii2/feedback",
-    "description": "Feedback module for Yii 2 framework",
+    "name": "simple-yii2/review",
+    "description": "Review module for Yii 2 framework",
     "type": "yii2-module",
-    "keywords": ["yii2","module","feedback", "review"],
+    "keywords": ["yii2","module", "review"],
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "cms\\feedback\\": ""
+            "cms\\review\\": ""
         }
     }
 }
