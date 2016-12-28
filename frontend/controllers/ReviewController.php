@@ -75,7 +75,7 @@ class ReviewController extends Controller
 
 		$user = Yii::$app->getUser();
 
-		if (!$user->can('Review'))
+		if (!$user->can('ReviewUpdate', [$object]))
 			throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
 
 		$object->active = false;
@@ -106,7 +106,7 @@ class ReviewController extends Controller
 
 		$user = Yii::$app->getUser();
 
-		if (!$user->can('Review'))
+		if (!$user->can('ReviewUpdate', [$object]))
 			throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
 
 		if ($object->delete())

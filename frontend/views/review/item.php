@@ -13,7 +13,7 @@ if (!$model->active)
 
 $user = Yii::$app->getUser();
 $a = [];
-if ($user->can('Review')) {
+if ($user->can('ReviewUpdate', [$model])) {
 	$a[] = Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id' => $model->id], [
 		'title' => Yii::t('yii', 'Update'),
 	]);
@@ -21,6 +21,8 @@ if ($user->can('Review')) {
 		'title' => Yii::t('yii', 'Delete'),
 		'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
 	]);
+}
+if ($user->can('Review')) {
 	$a[] = Html::a('<span class="glyphicon glyphicon-ok"></span>', ['active', 'id' => $model->id], [
 		'title' => Yii::t('review', 'Activate'),
 	]);

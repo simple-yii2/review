@@ -38,6 +38,13 @@ class Module extends \yii\base\Module {
 			//role
 			$role = $auth->createRole('Review');
 			$auth->add($role);
+			
+			//permission
+			$permission = $auth->createPermission('ReviewUpdate');
+
+			$own = $auth->getPermission('own');
+			$auth->addChild($role, $permission);
+			$auth->addChild($own, $permission);
 		}
 	}
 
