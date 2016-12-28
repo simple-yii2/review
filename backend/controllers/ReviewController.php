@@ -49,7 +49,11 @@ class ReviewController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model = new ReviewForm(new Review);
+		$object = new Review([
+			'user_id' => Yii::$app->getUser()->getId(),
+		]);
+
+		$model = new ReviewForm($object);
 
 		if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
 			Yii::$app->session->setFlash('success', Yii::t('review', 'Changes saved successfully.'));
