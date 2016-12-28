@@ -22,8 +22,8 @@ class Review extends ActiveRecord
 	{
 		parent::init();
 
-		$this->active = false;
-		$this->date = date('Y-m-d H:i:s');
+		$this->active = true;
+		$this->date = gmdate('Y-m-d H:i:s');
 	}
 
 }

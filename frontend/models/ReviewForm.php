@@ -1,6 +1,6 @@
 <?php
 
-namespace cms\review\backend\models;
+namespace cms\review\frontend\models;
 
 use Yii;
 use yii\base\Model;
@@ -10,16 +10,6 @@ use yii\base\Model;
  */
 class ReviewForm extends Model
 {
-
-	/**
-	 * @var boolean Active
-	 */
-	public $active;
-
-	/**
-	 * @var datetime Date
-	 */
-	public $date;
 
 	/**
 	 * @var string User name
@@ -45,8 +35,6 @@ class ReviewForm extends Model
 		$this->_object = $object;
 
 		//attributes
-		$this->active = $object->active == 0 ? '0' : '1';
-		$this->date = $object->date;
 		$this->name = $object->name;
 		$this->content = $object->content;
 
@@ -59,8 +47,6 @@ class ReviewForm extends Model
 	public function attributeLabels()
 	{
 		return [
-			'active' => Yii::t('review', 'Active'),
-			'date' => Yii::t('review', 'Date'),
 			'name' => Yii::t('review', 'Name'),
 			'content' => Yii::t('review', 'Review'),
 		];
@@ -72,11 +58,9 @@ class ReviewForm extends Model
 	public function rules()
 	{
 		return [
-			['active', 'boolean'],
-			['date', 'match', 'pattern' => '/^\d{4}\-\d{2}\-\d{2}\s\d{2}:\d{2}:\d{2}$/'],
 			['name', 'string', 'max' => 50],
 			['content', 'string', 'max' => 1000],
-			[['date', 'name', 'content'], 'required'],
+			[['name', 'content'], 'required'],
 		];
 	}
 
@@ -91,8 +75,6 @@ class ReviewForm extends Model
 
 		$object = $this->_object;
 
-		$object->active = $this->active == 1;
-		$object->date = $this->date;
 		$object->name = $this->name;
 		$object->content = $this->content;
 
