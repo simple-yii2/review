@@ -20,7 +20,7 @@ class ReviewController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$query = Review::find()->orderBy(['date' => SORT_DESC]);
+		$query = Review::find()->orderBy(['active' => SORT_ASC, 'date' => SORT_DESC]);
 
 		if (!Yii::$app->getUser()->can('Review'))
 			$query->andWhere(['or',
