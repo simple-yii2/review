@@ -18,11 +18,13 @@ class ReviewController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$query = Review::find()
-			->andWhere(['or',
+		$query = Review::find()->orderBy(['date' => SORT_DESC]);
+
+		if (!Yii::$app->getUser()->can('Review'))
+			$query->andWhere(['or',
 				['user_id' => Yii::$app->getUser()->getId()],
 				['active' => true],
-			])->orderBy(['date' => SORT_DESC]);
+			]);
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
