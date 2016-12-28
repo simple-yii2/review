@@ -3,9 +3,13 @@
 use yii\helpers\Html;
 use yii\widgets\ListView;
 
+use cms\review\frontend\assets\ReviewAsset;
+
 $title = Yii::t('review', 'Reviews');
 
 $this->title = $title . ' | ' . Yii::$app->name;
+
+ReviewAsset::register($this);
 
 ?>
 <h1><?= Html::encode($title) ?></h1>

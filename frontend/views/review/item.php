@@ -2,8 +2,6 @@
 
 use yii\helpers\Html;
 
-use cms\review\frontend\assets\ReviewAsset;
-
 $date = strtotime($model->date);
 
 $options = [
@@ -13,12 +11,31 @@ $options = [
 if (!$model->active)
 	Html::addCssClass($options, 'inactive');
 
-ReviewAsset::register($this);
+$user = Yii::$app->getUser();
+$a = [];
+if ($user->can('Review')) {
+	$a[] = Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id' => $model->id], [
+		'title' => Yii::t('yii', 'Update'),
+	]);
+	$a[] = Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
+		'title' => Yii::t('yii', 'Delete'),
+		'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+	]);
+	$a[] = Html::a('<span class="glyphicon glyphicon-ok"></span>', ['active', 'id' => $model->id], [
+		'title' => Yii::t('review', 'Activate'),
+	]);
+}
+
+$actions = '';
+
+if (!empty($a))
+	$actions = Html::tag('div', implode('&nbsp;', $a), ['class' => 'pull-right']);
 
 ?>
 <hr>
 
 <?= Html::beginTag('div', $options) ?>
+	<?= $actions ?>
 	<p>
 		<?= Html::tag('meta', '', [
 			'itemprop' => 'datePublished',
