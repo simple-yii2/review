@@ -6,7 +6,6 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-
 use cms\review\backend\models\ReviewForm;
 use cms\review\backend\models\ReviewSearch;
 use cms\review\common\models\Review;
@@ -35,11 +34,10 @@ class ReviewController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$model = new ReviewSearch;
+		$search = new ReviewSearch;
 
 		return $this->render('index', [
-			'dataProvider' => $model->search(Yii::$app->getRequest()->get()),
-			'model' => $model,
+			'search' => $search,
 		]);
 	}
 

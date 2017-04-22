@@ -19,8 +19,8 @@ $this->params['breadcrumbs'] = [
 </div>
 
 <?= GridView::widget([
-	'dataProvider' => $dataProvider,
-	'filterModel' => $model,
+	'dataProvider' => $search->getDataProvider(),
+	'filterModel' => $search,
 	'summary' => '',
 	'tableOptions' => ['class' => 'table table-condensed'],
 	'rowOptions' => function ($model, $key, $index, $grid) {

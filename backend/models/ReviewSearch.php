@@ -4,22 +4,13 @@ namespace cms\review\backend\models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
-
 use cms\review\common\models\Review;
 
 /**
  * Search model
  */
-class ReviewSearch extends Review {
-
-	/**
-	 * @inheritdoc
-	 */
-	public function rules() {
-		return [
-			['name', 'string'],
-		];
-	}
+class ReviewSearch extends Review
+{
 
 	/**
 	 * @inheritdoc
@@ -33,13 +24,27 @@ class ReviewSearch extends Review {
 	}
 
 	/**
-	 * Search function
-	 * @param array $params Attributes array
-	 * @return yii\data\ActiveDataProvider
+	 * @inheritdoc
 	 */
-	public function search($params) {
+	public function rules()
+	{
+		return [
+			['name', 'string'],
+		];
+	}
+
+	/**
+	 * Search function
+	 * @param array|null $params Attributes array
+	 * @return ActiveDataProvider
+	 */
+	public function getDataProvider($params = null) {
+		if ($params === null)
+			$params = Yii::$app->getRequest()->get();
+
 		//ActiveQuery
-		$query = static::find()->orderBy(['active' => SORT_ASC]);
+		$query = static::find()
+		->orderBy(['active' => SORT_ASC]);
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
