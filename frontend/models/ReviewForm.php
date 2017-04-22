@@ -4,6 +4,7 @@ namespace cms\review\frontend\models;
 
 use Yii;
 use yii\base\Model;
+use cms\review\common\models\Review;
 
 /**
  * Editing form
@@ -22,21 +23,24 @@ class ReviewForm extends Model
 	public $content;
 
 	/**
-	 * @var cms\review\common\models\Review
+	 * @var Review
 	 */
-	private $_object;
+	private $_model;
 
 	/**
 	 * @inheritdoc
-	 * @param cms\review\common\models\Review $object 
+	 * @param Review $model 
 	 */
-	public function __construct(\cms\review\common\models\Review $object, $config = [])
+	public function __construct(Review $model = null, $config = [])
 	{
-		$this->_object = $object;
+		if ($model === null)
+			$model = new Review;
+
+		$this->_model = $model;
 
 		//attributes
-		$this->name = $object->name;
-		$this->content = $object->content;
+		$this->name = $model->name;
+		$this->content = $model->content;
 
 		parent::__construct($config);
 	}
@@ -65,6 +69,15 @@ class ReviewForm extends Model
 	}
 
 	/**
+	 * Model getter
+	 * @return Review
+	 */
+	public function getModel()
+	{
+		return $this->_model;
+	}
+
+	/**
 	 * Saving object using model attributes
 	 * @return boolean
 	 */
@@ -73,12 +86,12 @@ class ReviewForm extends Model
 		if (!$this->validate())
 			return false;
 
-		$object = $this->_object;
+		$model = $this->_model;
 
-		$object->name = $this->name;
-		$object->content = $this->content;
+		$model->name = $this->name;
+		$model->content = $this->content;
 
-		if (!$object->save(false))
+		if (!$model->save(false))
 			return false;
 
 		return true;

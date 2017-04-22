@@ -27,6 +27,15 @@ class Module extends BackendModule {
 			$role = $auth->createRole('Review');
 			$role->description = Yii::t('review', 'Reviews');
 			$auth->add($role);
+
+			//permission
+			$permission = $auth->createPermission('ReviewUpdate');
+			$permission->description = Yii::t('review', 'Reviews update');
+			$auth->add($permission);
+			$auth->addChild($role, $permission);
+
+			$own = $auth->getPermission('own');
+			$auth->addChild($own, $permission);
 		}
 	}
 

@@ -3,11 +3,12 @@
 return [
 	'Reviews' => 'Отзывы',
 	'Create review' => 'Добавить отзыв',
+	'Reviews update' => 'Редактирование отзывов',
 
 	'Changes saved successfully.' => 'Изменения успешно сохранены.',
 	'Item not found.' => 'Объект не найден.',
 	'Item deleted successfully.' => 'Объект успешно удален.',
-	'Your review added and will be visible to others after checking.' => 'Ваш отзыв добавлен и будет виден другим пользователям после проверки.',
+	'Your review has been added and will be visible to others after verification.' => 'Ваш отзыв добавлен и будет виден другим пользователям после проверки.',
 	'Review deleted successfully.' => 'Отзыв успешно удален.',
 
 	'Active' => 'Активный',

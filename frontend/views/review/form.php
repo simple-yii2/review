@@ -4,14 +4,15 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 ?>
-<?php $form = ActiveForm::begin([
+<?php $f = ActiveForm::begin([
 	'layout' => 'horizontal',
 	'enableClientValidation' => false,
 ]); ?>
 
-	<?= $form->field($model, 'name') ?>
-
-	<?= $form->field($model, 'content')->textarea(['rows' => 5]) ?>
+	<fieldset>
+		<?= $f->field($form, 'name') ?>
+		<?= $f->field($form, 'content')->textarea(['rows' => 5]) ?>
+	</fieldset>
 
 	<div class="form-group">
 		<div class="col-sm-offset-3 col-sm-6">

@@ -7,7 +7,6 @@ use yii\data\ActiveDataProvider;
 use yii\web\BadRequestHttpException;
 use yii\web\ForbiddenHttpException;
 use yii\web\Controller;
-
 use cms\review\common\models\Review;
 use cms\review\frontend\models\ReviewForm;
 
@@ -22,11 +21,15 @@ class ReviewController extends Controller
 	{
 		$query = Review::find()->orderBy(['active' => SORT_ASC, 'date' => SORT_DESC]);
 
-		if (!Yii::$app->getUser()->can('Review'))
-			$query->andWhere(['or',
-				['user_id' => Yii::$app->getUser()->getId()],
-				['active' => true],
-			]);
+		$user = Yii::$app->getUser();
+
+		if (!$user->can('Review')) {
+			$condition = ['or', ['active' => true]];
+			if (!$user->isGuest)
+				$condition[] = ['user_id' => $user->getId()];
+
+			$query->andWhere($condition);
+		}
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
@@ -45,71 +48,74 @@ class ReviewController extends Controller
 	{
 		$user = Yii::$app->getUser();
 
-		$object = new Review(['user_id' => $user->getId()]);
-		$object->active = false;
+		$model = new Review(['active' => false]);
+		if (!$user->isGuest)
+			$model->user_id = $user->getId();
 		if ($user->hasMethod('getUsername'))
-			$object->name = $user->getUsername();
+			$model->name = $user->getUsername();
 
-		$model = new ReviewForm($object);
+		$form = new ReviewForm($model);
 
-		if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
-			Yii::$app->session->setFlash('success', Yii::t('review', 'Your review added and will be visible to others after checking.'));
+		if ($form->load(Yii::$app->getRequest()->post()) && $form->save()) {
+			Yii::$app->session->setFlash('success', Yii::t('review', 'Your review has been added and will be visible to others after verification.'));
+
 			return $this->redirect(['index']);
 		}
 
 		return $this->render('create', [
-			'model' => $model,
+			'form' => $form,
 		]);
 	}
 
 	/**
 	 * Update
-	 * @param integer $id 
+	 * @param int $id 
 	 * @return string
 	 */
 	public function actionUpdate($id)
 	{
-		$object = Review::findOne($id);
-		if ($object === null)
+		$model = Review::findOne($id);
+		if ($model === null)
 			throw new BadRequestHttpException(Yii::t('review', 'Item not found.'));
 
 		$user = Yii::$app->getUser();
 
-		if (!$user->can('ReviewUpdate', [$object]))
+		if (!$user->can('ReviewUpdate', [$model]))
 			throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
 
-		$object->active = false;
+		$model->active = false;
 
-		$model = new ReviewForm($object);
+		$form = new ReviewForm($model);
 
-		if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
+		if ($form->load(Yii::$app->getRequest()->post()) && $form->save()) {
 			Yii::$app->session->setFlash('success', Yii::t('review', 'Changes saved successfully.'));
+
 			return $this->redirect(['index']);
 		}
 
 		return $this->render('update', [
-			'model' => $model,
+			'form' => $form,
 		]);
 
 	}
 
 	/**
 	 * Delete
-	 * @param integer $id 
+	 * @param int $id 
 	 * @return string
 	 */
 	public function actionDelete($id)
 	{
-		$object = Review::findOne($id);
-		if ($object === null)
+		$model = Review::findOne($id);
+		if ($model === null)
 			throw new BadRequestHttpException(Yii::t('review', 'Item not found.'));
 
 		$user = Yii::$app->getUser();
 
-		if (!$user->can('ReviewUpdate', [$object]))
+		if (!$user->can('ReviewUpdate', [$model]))
 			throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
 
-		if ($object->delete())
+		if ($model->delete())
 			Yii::$app->session->setFlash('success', Yii::t('review', 'Review deleted successfully.'));
 
 		return $this->redirect(['index']);
@@ -117,21 +123,21 @@ class ReviewController extends Controller
 
 	/**
 	 * Activate/deactivate
-	 * @param integer $id 
+	 * @param int $id 
 	 * @return string
 	 */
 	public function actionActive($id)
 	{
-		$object = Review::findOne($id);
-		if ($object === null)
+		$module = Review::findOne($id);
+		if ($module === null)
 			throw new BadRequestHttpException(Yii::t('review', 'Item not found.'));
 
 		if (!Yii::$app->getUser()->can('Review'))
 			throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
 
-		$object->active = !$object->active;
+		$module->active = !$module->active;
 		
-		if ($object->update(false, ['active']))
+		if ($module->update(false, ['active']))
 			Yii::$app->session->setFlash('success', Yii::t('review', 'Changes saved successfully.'));
 
 		return $this->redirect(['index']);
