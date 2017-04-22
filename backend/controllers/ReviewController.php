@@ -42,62 +42,60 @@ class ReviewController extends Controller
 	}
 
 	/**
-	 * Creating
+	 * Create
 	 * @return string
 	 */
 	public function actionCreate()
 	{
-		$object = new Review([
-			'user_id' => Yii::$app->getUser()->getId(),
-		]);
+		$form = new ReviewForm;
 
-		$model = new ReviewForm($object);
-
-		if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
+		if ($form->load(Yii::$app->getRequest()->post()) && $form->save()) {
 			Yii::$app->session->setFlash('success', Yii::t('review', 'Changes saved successfully.'));
+
 			return $this->redirect(['index']);
 		}
 
 		return $this->render('create', [
-			'model' => $model,
+			'form' => $form,
 		]);
 	}
 
 	/**
-	 * Updating
+	 * Update
 	 * @param integer $id
 	 * @return string
 	 */
 	public function actionUpdate($id)
 	{
-		$object = Review::findOne($id);
-		if ($object === null)
+		$model = Review::findOne($id);
+		if ($model === null)
 			throw new BadRequestHttpException(Yii::t('review', 'Item not found.'));
 
-		$model = new ReviewForm($object);
+		$form = new ReviewForm($model);
 
-		if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
+		if ($form->load(Yii::$app->getRequest()->post()) && $form->save()) {
 			Yii::$app->session->setFlash('success', Yii::t('review', 'Changes saved successfully.'));
+
 			return $this->redirect(['index']);
 		}
 
 		return $this->render('update', [
-			'model' => $model,
+			'form' => $form,
 		]);
 	}
 
 	/**
-	 * Deleting
+	 * Delete
 	 * @param integer $id
 	 * @return string
 	 */
 	public function actionDelete($id)
 	{
-		$object = Review::findOne($id);
-		if ($object === null)
+		$model = Review::findOne($id);
+		if ($model === null)
 			throw new BadRequestHttpException(Yii::t('review', 'Item not found.'));
 
-		if ($object->delete()) {
+		if ($model->delete()) {
 			Yii::$app->session->setFlash('success', Yii::t('review', 'Item deleted successfully.'));
 		}
 

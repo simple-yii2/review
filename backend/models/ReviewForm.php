@@ -4,6 +4,7 @@ namespace cms\review\backend\models;
 
 use Yii;
 use yii\base\Model;
+use cms\review\common\models\Review;
 
 /**
  * Editing form
@@ -32,23 +33,26 @@ class ReviewForm extends Model
 	public $content;
 
 	/**
-	 * @var cms\review\common\models\Review
+	 * @var Review
 	 */
-	private $_object;
+	private $_model;
 
 	/**
 	 * @inheritdoc
-	 * @param cms\review\common\models\Review $object 
+	 * @param Review|null $model 
 	 */
-	public function __construct(\cms\review\common\models\Review $object, $config = [])
+	public function __construct(Review $model = null, $config = [])
 	{
-		$this->_object = $object;
+		if ($model === null)
+			$model = new Review;
+
+		$this->_model = $model;
 
 		//attributes
-		$this->active = $object->active == 0 ? '0' : '1';
-		$this->date = $object->date;
-		$this->name = $object->name;
-		$this->content = $object->content;
+		$this->active = $model->active == 0 ? '0' : '1';
+		$this->date = $model->date;
+		$this->name = $model->name;
+		$this->content = $model->content;
 
 		parent::__construct($config);
 	}
@@ -81,7 +85,16 @@ class ReviewForm extends Model
 	}
 
 	/**
-	 * Saving object using model attributes
+	 * Model getter
+	 * @return ReviewForm
+	 */
+	public function getModel()
+	{
+		return $this->_model;
+	}
+
+	/**
+	 * Saving model using model attributes
 	 * @return boolean
 	 */
 	public function save()
@@ -89,14 +102,14 @@ class ReviewForm extends Model
 		if (!$this->validate())
 			return false;
 
-		$object = $this->_object;
+		$model = $this->_model;
 
-		$object->active = $this->active == 1;
-		$object->date = $this->date;
-		$object->name = $this->name;
-		$object->content = $this->content;
+		$model->active = $this->active == 1;
+		$model->date = $this->date;
+		$model->name = $this->name;
+		$model->content = $this->content;
 
-		if (!$object->save(false))
+		if (!$model->save(false))
 			return false;
 
 		return true;
