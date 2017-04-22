@@ -18,12 +18,15 @@ class Review extends ActiveRecord
 	/**
 	 * @inheritdoc
 	 */
-	public function init()
+	public function __construct($config = [])
 	{
-		parent::init();
+		//default values
+		if (!array_key_exists('active', $config))
+			$config['active'] = true;
+		if (!array_key_exists('date', $config))
+			$config['date'] = gmdate('Y-m-d H:i:s');
 
-		$this->active = true;
-		$this->date = gmdate('Y-m-d H:i:s');
+		parent::__construct($config);
 	}
 
 }

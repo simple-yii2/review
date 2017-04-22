@@ -44,7 +44,7 @@ class ReviewSearch extends Review
 
 		//ActiveQuery
 		$query = static::find()
-		->orderBy(['active' => SORT_ASC]);
+		->orderBy(['active' => SORT_ASC, 'date' => SORT_DESC]);
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
